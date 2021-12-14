@@ -1,25 +1,31 @@
 class Rectangle:
-    def __init__(self):
+    def __init__(self, width, height):
         self.width = width
         self.height = height
     
-    def set_width(self):
-        pass
+
+    def set_width(self, new_width):
+        self.width = new_width
     
-    def set_height(self):
-        pass
+
+    def set_height(self, new_height):
+        self.height = new_height
+
 
     def get_area(self):
-        pass
+        return self.width ** 2 + self.height ** 2
+
 
     def get_perimeter(self):
-        pass
+        return 2 * self.width + 2 * self.height
+    
 
     def get_diagonal(self):
-        pass
+        return (self.width ** 2 + self.height ** 2) ** .5
     
     def get_picture(self):
-        pass
+        pic = ("*"*self.width +"\n")*self.height
+        return pic
 
     def get_amount_inside(self, rect):
         pass
