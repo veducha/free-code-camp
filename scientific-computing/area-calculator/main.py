@@ -23,4 +23,4 @@ print(rect.get_amount_inside(sq))
 
 
 # Run unit tests automatically
-# main(module='test_module', exit=False)
+main(module="test_module", exit=False)
