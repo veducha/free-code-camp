@@ -9,6 +9,10 @@ print(rect.get_area())
 print(rect.get_perimeter())
 print(rect.get_picture())
 
+
+rect2 = shape_calculator.Rectangle(2,2)
+print(rect.get_amount_inside(rect2))
+
 # sq = shape_calculator.Square(9)
 # print(sq.get_area())
 # sq.set_side(4)

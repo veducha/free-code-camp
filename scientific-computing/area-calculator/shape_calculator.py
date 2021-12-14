@@ -28,4 +28,9 @@ class Rectangle:
         return pic
 
     def get_amount_inside(self, rect):
-        pass
+        w = rect.width
+        h = rect.height
+
+        x = self.width // w
+        y = self.height // h
+        return x*y
