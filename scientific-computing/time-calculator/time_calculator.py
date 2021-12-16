@@ -39,6 +39,13 @@ def add_time(startTime, duration, day=None):
         per = "PM"
 
     # String to display clock
+    # Ensuring it displays minutes as 04 instead of 4
+    if endMinu < 10:
+        endMinu = "0"+str(endMinu)
+
+    if endHour == 0:
+        endHour = 12
+
     endClock = str(endHour)+":"+str(endMinu)+" "+per
 
     # Output logic depending whether day is present or not
@@ -55,19 +62,19 @@ def add_time(startTime, duration, day=None):
         endDay = numb2days[(dayNumb+daysAfter) % 7]
 
         if daysAfter == 0:
-            return print(endClock+",", endDay)
+            return endClock+", " + endDay
         elif daysAfter == 1:
-            return print(endClock+",", endDay, "(next day)")
+            return endClock+", "+endDay + " (next day)"
         elif daysAfter > 1:
-            return print(endClock+",", endDay, f"({daysAfter} days later)")
+            return (endClock+", " + endDay + f" ({daysAfter} days later)")
 
     elif day is None:
         if daysAfter == 0:
-            return print(endClock)
+            return endClock
         elif daysAfter == 1:
-            return print(endClock, "(next day")
+            return endClock + " (next day)"
         elif daysAfter > 1:
-            return print(endClock, f"({daysAfter} days later)")
+            return endClock + f" ({daysAfter} days later)"
 
 
 # add_time("11:30 PM", "50:01", "monday")
