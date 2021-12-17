@@ -28,7 +28,7 @@ class Category:
         self.balance += amount
 
     def withdraw(self, amount, description=""):
-        if self.check_funds(amount) >= 0:
+        if self.check_funds(amount):
             self.ledger.append({'amount': -amount, 'description': description})
             self.balance -= amount
             return True
@@ -47,10 +47,9 @@ class Category:
         else:
             return False
 
+
 # Extremely clunky and ugly code!
 # Redo if possible
-
-
 def create_spend_chart(categories):
 
     names = list()
@@ -60,12 +59,13 @@ def create_spend_chart(categories):
         names.append(cat.name)
         spent = 0
         for item in cat.ledger:
-            if item['amount'] < 0:
+            if item['amount'] <= 0:
                 spent += abs(item['amount'])
         wthdr.append(spent)
 
     totalSpent = sum(wthdr)
     perSpent = [round(s*100/totalSpent) for s in wthdr]
+    # print(perSpent)
 
     # Creating the text output
     # Create first line title
@@ -74,7 +74,7 @@ def create_spend_chart(categories):
         auxLine = ""
         # Creates an array keeping track of the o's
         for perc in perSpent:
-            if perc > y:
+            if perc >= y:
                 auxLine += "o  "
             else:
                 auxLine += "   "
@@ -88,30 +88,16 @@ def create_spend_chart(categories):
     L = len(maxName)
     rjustNames = [name.ljust(L, " ") for name in names]
 
+    # almost_all_names = rjustNames[:-1]
+
     # Creates vertical words
     for i in range(0, L):
         line += " "*5
         for word in rjustNames:
             line += word[i]+" "*2
-        line += "\n"
+        # The last line should not en in a linebreak,
+        # thus the following conditional
+        if i != L-1:
+            line += "\n"
 
     return line
-
-
-food = Category("Food")
-food.deposit(1000, "initial deposit")
-food.withdraw(10.15, "groceries")
-food.withdraw(15.89, "restaurant and more food for dessert")
-
-clothing = Category("Clothing")
-food.transfer(50, clothing)
-clothing.withdraw(25.55)
-clothing.withdraw(100)
-
-auto = Category("Auto")
-auto.deposit(1000, "initial deposit")
-auto.withdraw(15)
-
-test = create_spend_chart([food, clothing, auto])
-print(test)
-# print(sum(test))
