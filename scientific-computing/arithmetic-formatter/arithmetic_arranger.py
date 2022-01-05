@@ -1,5 +1,9 @@
 def arithmetic_arranger(problems, solutions=False):
+
     l = len(problems)
+
+    if l > 5:
+        return "Error: Too many problems."
 
     top = list()
     sym = list()
@@ -9,12 +13,33 @@ def arithmetic_arranger(problems, solutions=False):
     for entry in problems:
         parts = entry.split()
 
+        # Checking for errors
+        if len(parts[0]) > 4 or len(parts[2]) > 4:
+            return "Error: Numbers cannot be more than four digits."
+        if parts[1] != "+" and parts[1] != "-":
+            return "Error: Operator must be '+' or '-'."
+        try:
+            int(parts[0])
+        except:
+            return "Error: Numbers must only contain digits."
+
+        try:
+            int(parts[2])
+        except:
+            return "Error: Numbers must only contain digits."
+
         top.append(parts[0])
         sym.append(parts[1])
         bot.append(parts[2])
         space.append(len(max(parts, key=len)) + 2)
 
-    sol = [str(int(x) + int(y)) for x, y in zip(top, bot)]
+    # sol = [str(int(x) + int(y)) for x, y in zip(top, bot)]
+    sol = list()
+    for i in range(l):
+        if sym[i] == "+":
+            sol.append(str(int(top[i]) + int(bot[i])))
+        if sym[i] == "-":
+            sol.append(str(int(top[i]) - int(bot[i])))
 
     line1 = ""
     line2 = ""
@@ -36,6 +61,12 @@ def arithmetic_arranger(problems, solutions=False):
     # print(line1)
 
     if solutions:
-        return line1 + "\n" + line2 + "\n" + line3 + "\n" + line4
+        arranged_problems = line1 + "\n" + line2 + "\n" + line3 + "\n" + line4
     if not solutions:
-        return line1 + "\n" + line2 + "\n" + line3
+        arranged_problems = line1 + "\n" + line2 + "\n" + line3
+
+    return arranged_problems
+
+
+print(arithmetic_arranger(['32 - 698', '1 - 3801', '45 + 43',
+                           '123 + 49', '988 + 40'], True))
